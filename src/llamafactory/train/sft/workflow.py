@@ -41,7 +41,7 @@ def run_sft(
     generating_args: "GeneratingArguments",
     callbacks: Optional[List["TrainerCallback"]] = None,
 ):
-    tokenizer_module = load_tokenizer(model_args)
+    tokenizer_module = load_tokenizer(model_args)#加载tokenizer要注意有些模型会有特殊的字符或者它的起始和总结符号跟llama3不一样，这个函数会处理这些不一样的字符，并保证tokenizer跟模型匹配。
     tokenizer = tokenizer_module["tokenizer"]
     dataset_module = get_dataset(model_args, data_args, training_args, stage="sft", **tokenizer_module)
     model = load_model(tokenizer, model_args, finetuning_args, training_args.do_train)
